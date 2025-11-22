@@ -1,0 +1,33 @@
+# ───────── 크롤링 기본 ─────────
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+lxml>=4.9.3
+pandas>=2.2.0
+numpy>=1.26.0
+
+# ───────── Selenium + Chrome Driver ─────────
+selenium>=4.17.2
+selenium-wire>=5.1.0
+undetected-chromedriver>=3.5.5
+
+# ───────── HTML / URL 파싱 ─────────
+urllib3>=2.2.1
+python-dateutil>=2.9.0
+
+# ───────── Timezone / Scheduling ─────────
+pytz>=2024.1
+schedule>=1.2.1
+
+# ───────── 디버깅 / 로그 ─────────
+loguru>=0.7.2
+
+# ───────── 프로젝트 내부에서 사용하는 유틸 ─────────
+python-dotenv>=1.0.1
+
+# ───────── 필수 시스템 유틸 ─────────
+tqdm>=4.66.1
+
+# ───────── 개발 편의 ─────────
+ipython>=8.22.2
+
+blinker==1.6.2
