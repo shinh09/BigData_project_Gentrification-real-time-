@@ -1,0 +1,62 @@
+services:
+  spark-master:
+    image: datamechanics/spark:3.3-latest
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+    command: >
+      bash -c "
+      /opt/spark/sbin/start-master.sh &&
+      tail -f /dev/null
+      "
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+    networks:
+      - spark-net
+
+  spark-worker-1:
+    image: datamechanics/spark:3.3-latest
+    container_name: spark-worker-1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    command: >
+      bash -c "
+      /opt/spark/sbin/start-worker.sh spark://spark-master:7077 &&
+      tail -f /dev/null
+      "
+    depends_on:
+      - spark-master
+    networks:
+      - spark-net
+
+  spark-worker-2:
+    image: datamechanics/spark:3.3-latest
+    container_name: spark-worker-2
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    command: >
+      bash -c "
+      /opt/spark/sbin/start-worker.sh spark://spark-master:7077 &&
+      tail -f /dev/null
+      "
+    depends_on:
+      - spark-master
+    networks:
+      - spark-net
+
+  jupyter:
+    image: jupyter/pyspark-notebook
+    container_name: jupyter
+    volumes:
+      - ../workspace:/workspace
+    ports:
+      - "8888:8888"
+    networks:
+      - spark-net
+
+networks:
+  spark-net:
